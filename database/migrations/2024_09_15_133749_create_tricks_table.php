@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('tricks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('nickname')->nullable();
+            $table->text('description')->nullable();
+            $table->date('learned_at')->nullable();
+            $table->boolean('is_mastered')->default(false);
+            $table->enum('difficulty', ['easy', 'medium', 'hard', 'expert']);
+            $table->enum('energy_cost', ['low', 'medium', 'high']);
+            $table->string('image_url')->nullable();
+            $table->string('video_url')->nullable();
             $table->timestamps();
         });
     }
