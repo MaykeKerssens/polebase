@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('similar_tricks', function (Blueprint $table) {
+        Schema::create('trick_variants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trick_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('similar_trick_id')->constrained('tricks')->cascadeOnDelete();
+            $table->foreignId('variant_trick_id')->constrained('tricks')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('similar_tricks');
+        Schema::dropIfExists('trick_variants');
     }
 };
