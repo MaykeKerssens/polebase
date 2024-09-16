@@ -10,10 +10,14 @@ class Transition extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'start_trick_id',
         'end_trick_id',
-        'transition_type',
         'description',
+        'learned_at',
+        'is_mastered',
+        'difficulty',
+        'energy_cost',
         'video_url',
     ];
 
