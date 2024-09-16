@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tag;
 use App\Models\Transition;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,13 @@ class TransitionSeeder extends Seeder
 
         Transition::factory()
             ->count(5)
-            ->create();
+            ->create()
+            ->each(function ($trick) {
+                // Randomly decide whether to attach tags to each transition
+                if (rand(0, 1)) {
+                    $tags = Tag::inRandomOrder()->take(rand(1, 10))->pluck('id');
+                    $trick->tags()->attach($tags);
+                }
+            });
     }
 }
