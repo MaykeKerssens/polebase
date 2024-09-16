@@ -48,6 +48,6 @@ class Trick extends Model
     public function variants()
     {
         // Return all variants of the trick
-        return $this->belongsToMany(Trick::class, 'trick_variants', 'trick_id', 'variant_trick_id');
+        return $this->belongsToMany(Trick::class, 'trick_variant', 'trick_id', 'variant_trick_id');
     }
 }

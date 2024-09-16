@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Tag;
+use App\Models\Trick;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,5 +29,29 @@ class TrickFactory extends Factory
             'image_url' => $this->faker->optional()->imageUrl,
             'video_url' => $this->faker->optional()->url,
         ];
+    }
+
+    /**
+     * Configure the factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Trick $trick) {
+            // Randomly decide whether to attach tags to the trick
+            if (rand(0, 1)) {
+                $tags = Tag::inRandomOrder()->take(rand(1, 10))->pluck('id');
+                $trick->tags()->attach($tags);
+            }
+
+            // Randomly create variant relationships between tricks
+            if (rand(0, 1)) {
+                $variantTrick = Trick::inRandomOrder()->first();
+                if ($trick->id !== $variantTrick->id) {
+                    $trick->variants()->attach($variantTrick->id);
+                }
+            }
+        });
     }
 }
